@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import axios from '../config/axiosConfig'
+import { LOGIN_URL } from '../config/constants'
 
 class LoginForm extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class LoginForm extends Component {
       username: this.state.username,
       password: this.state.password
     }
-    axios.post('login/', params).then(res => console.log(res))
+    axios.post(LOGIN_URL, params).then(res => console.log(res))
   }
 
   onChange = (e) => {
