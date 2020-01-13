@@ -25,6 +25,16 @@ class LoginForm extends Component {
     })
   }
   render() {
+    let params = {
+      
+      headers: {
+      'Authorization': 'Token --token_id--',
+      }
+    }
+    axios.get('blogs/', {
+      headers: params.headers
+      }).then(res => console.log(res))
+    // axios.get('blogs/').then(res => console.log(res))
     return (
     <div>
       <form  onSubmit={this.onSubmit}>
