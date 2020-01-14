@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { encryptData, axiosInstance, getDecryptData } from '../config/axiosConfig'
+import { encryptData, axiosInstance } from '../config/axiosConfig'
 import { LOGIN_URL } from '../config/constants'
 
 class LoginForm extends Component {
@@ -25,7 +25,7 @@ class LoginForm extends Component {
     })
   }
   render() {
-    // axiosInstance.get('blogs/').then(res => console.log(res))
+    axiosInstance.get('blogs/').then(res => console.log(res))
     return (
     <div>
       <form  onSubmit={this.onSubmit}>
