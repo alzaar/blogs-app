@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from '../config/axiosConfig'
+import { encryptData, axiosInstance, getDecryptData } from '../config/axiosConfig'
 import { LOGIN_URL } from '../config/constants'
 
 class LoginForm extends Component {
@@ -16,7 +16,7 @@ class LoginForm extends Component {
       username: this.state.username,
       password: this.state.password
     }
-    axios.post(LOGIN_URL, params).then(res => console.log(res))
+    axiosInstance.post(LOGIN_URL, params).then(res => console.log(res))
   }
 
   onChange = (e) => {
@@ -25,16 +25,19 @@ class LoginForm extends Component {
     })
   }
   render() {
-    let params = {
-      
-      headers: {
-      'Authorization': 'Token --token_id--',
-      }
+  //   let params = {
+  //     username: 'ali',
+  //     password: 'ali'
+  //   })
+  // }
+    let headers = {
+      'Authroization': 'Token 84cd72f2675b5991441a24e0808bdf37dba9b1b763521044ec32f00524ef53e6'
     }
-    axios.get('blogs/', {
-      headers: params.headers
-      }).then(res => console.log(res))
-    // axios.get('blogs/').then(res => console.log(res))
+    console.log(getDecryptData()[0].token)
+    //  { headers: headers }
+    // axiosInstance.post('login/', params).then(res => encryptData(res.data.token))
+    axiosInstance.get('blogs/').then(res => console.log(res))
+    
     return (
     <div>
       <form  onSubmit={this.onSubmit}>
