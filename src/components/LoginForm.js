@@ -16,7 +16,7 @@ class LoginForm extends Component {
       username: this.state.username,
       password: this.state.password
     }
-    axiosInstance.post(LOGIN_URL, params).then(res => console.log(res))
+    axiosInstance.post(LOGIN_URL, params).then(res => encryptData(res.data.token))
   }
 
   onChange = (e) => {
