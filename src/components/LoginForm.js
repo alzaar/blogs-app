@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { encryptData, axiosInstance } from '../config/axiosConfig'
+import { encryptData, axiosInstance, updateToken } from '../config/axiosConfig'
 import { LOGIN_URL } from '../config/constants'
 
 class LoginForm extends Component {
@@ -17,6 +17,7 @@ class LoginForm extends Component {
       password: this.state.password
     }
     axiosInstance.post(LOGIN_URL, params).then(res => encryptData(res.data.token))
+    .catch(err => updateToken())
   }
 
   onChange = (e) => {

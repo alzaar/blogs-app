@@ -32,3 +32,6 @@ export function getDecryptData() {
   return decryptedData
 }
 
+export function updateToken() {
+  window.localStorage.removeItem('bttf')
+}
