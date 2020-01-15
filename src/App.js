@@ -1,11 +1,12 @@
 import React from 'react'
 import './App.css'
-import LoginForm from './components/LoginForm'
+import Form from './components/Form'
+import { LOGIN_URL } from './config/constants'
 
 function App(){
   return (
     <div>
-      <LoginForm />
+      <Form url={LOGIN_URL} />
     </div>
   );
 }
