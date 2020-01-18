@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
+// ---TODO--- Should go in reddux actions ¬¬¬¬¬¬¬
 import { encryptData, axiosInstance, updateToken } from '../config/axiosConfig'
 import InputField from './InputField'
+import PropTypes from 'prop-types'
 
 class Form extends Component {
+  constructor(props) {
+    super(props) 
+    // ---TODO--- Change to redux state
+    this.state = {
+      textMap: new Map()
+    }
+  }
   onSubmit = (e) => {
     e.preventDefault()
     let map = this.state.textMap
@@ -13,6 +22,8 @@ class Form extends Component {
     }, {})
     Object.keys(textFieldObj).forEach(key => params[key] = textFieldObj[key])
     axiosInstance.post(this.props.url, params).then(res => encryptData(res.data.token))
+    // ---TODO---
+    // Update Error Display 
     .catch(err => updateToken())
   }
 
@@ -22,17 +33,28 @@ class Form extends Component {
     this.setState(textMap)
   }
   render() {
-    // axiosInstance.get('blogs/').then(res => console.log(res))
     return (
     <div>
       <form  onSubmit={this.onSubmit}>
-        <InputField label={'Username'} inputType={'text'} name={'username'} onChange={this.onChange}/>
-        <InputField label={'Password'} inputType={'password'} name={'password'} onChange={this.onChange}/>
+        {this.props.formFieldsDetails.map(fieldData => (
+          <InputField 
+            key={fieldData.id} 
+            label={fieldData.label} 
+            inputType={fieldData.inputType} 
+            name={fieldData.name} 
+            onChange={this.onChange}
+          />
+        ))}
         <input type='submit' />
       </form>
     </div>
     )
   }
+}
+
+Form.propTypes = {
+  formFieldsDetails: PropTypes.array.isRequired,
+  url: PropTypes.string.isRequired
 }
 
 export default Form

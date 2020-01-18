@@ -1,4 +1,6 @@
 import axios from 'axios'
+// --TODO-- Implement own cryptography algorithm
+// --TODO-- Write redux actions for functions below
 import Crypto from 'crypto-js'
 
 function getHeader() {
@@ -17,7 +19,7 @@ export const axiosInstance =  axios.create({
 axiosInstance.defaults.xsrfCookieName = 'csrftoken'
 axiosInstance.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
 
-// Change Secret Key and put to env file
+// Change Secret Key and put to env file ---TODO---
 
 export function encryptData(header) {
   let data = [{token: header}]
