@@ -1,12 +1,15 @@
 import React from 'react'
-import './App.css'
 import AppContainer from './components/AppContainer'
+import configureStore from './reduxStore'
+import { Provider } from 'react-redux'
+
+const store = configureStore({})
 
 function App(){
   return (
-    <div>
+    <Provider store={store}>
       <AppContainer />
-    </div>
+    </Provider>
   );
 }
 
