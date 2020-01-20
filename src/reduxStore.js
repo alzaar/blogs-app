@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-// import composeWithDevTools from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import monitorReducersEnhancer from './enhancers/monitorEnhancers'
 import loggerMiddleware from './middleware/logger'
@@ -10,7 +10,8 @@ export default function configureStore(preloadedState) {
   const middlewares = [loggerMiddleware, thunkMiddleware]
   const middlewareEnhancer = applyMiddleware(...middlewares)
   const enhancers = [middlewareEnhancer, monitorReducersEnhancer]
-  const composedEnhancers = ( window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() )|| compose(...enhancers) 
+  const composedEnhancers = composeWithDevTools(...enhancers)
+  // ( window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() )|| compose(...enhancers) 
   const store = createStore(rootReducer, preloadedState, composedEnhancers)
   return store
 }

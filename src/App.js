@@ -3,7 +3,7 @@ import AppContainer from './components/AppContainer'
 import configureStore from './reduxStore'
 import { Provider } from 'react-redux'
 
-const store = configureStore({})
+const store = configureStore()
 
 function App(){
   return (

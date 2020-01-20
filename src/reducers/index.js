@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
-function rootReducer(state={}, action) {
-  return 2
-}
+import formReducer from './formReducer'
+
 export default combineReducers({
-  test: rootReducer
+  formReducer: formReducer
 })

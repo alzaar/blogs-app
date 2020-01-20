@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import { encryptData, axiosInstance, updateToken } from '../config/axiosConfig'
 import InputField from './InputField'
 import PropTypes from 'prop-types'
+import { getFormDetails } from '../actions/formActions'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 class Form extends Component {
   constructor(props) {
@@ -32,7 +35,11 @@ class Form extends Component {
     textMap.set(e.target.name, e.target.value)
     this.setState(textMap)
   }
+  componentWillMount() {
+    (this.props.getFormDetails())
+  }
   render() {
+    console.log(this.props)
     return (
     <div>
       <form  onSubmit={this.onSubmit}>
@@ -57,4 +64,15 @@ Form.propTypes = {
   url: PropTypes.string.isRequired
 }
 
-export default Form
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    getFormDetails: getFormDetails
+  }, dispatch)
+}
+
+const mapStateToProps = state => ({
+  testUrl: state.formReducer.url,
+  testDetails: state.formReducer.formFieldsDetails
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form)
