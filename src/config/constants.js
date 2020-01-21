@@ -14,3 +14,7 @@ export const LOGIN_FORM_FIELDS = [
     inputType: 'password'
   },
 ]
+
+export const TOKEN_TITLE = 'bttf'
+export const SECRET_KEY = 'SECRET_KEY'
+export const UPDATE_TOKEN = 'UPDATE_TOKEN'

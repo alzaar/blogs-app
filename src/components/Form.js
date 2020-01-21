@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 // ---TODO--- Should go in reddux actions ¬¬¬¬¬¬¬
-import { encryptData, axiosInstance, updateToken } from '../config/axiosConfig'
+import { CustomAxios } from '../config/axiosConfig'
 import InputField from './InputField'
 import PropTypes from 'prop-types'
 import { getFormDetails } from '../actions/formActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { UPDATE_TOKEN } from '../config/constants'
+
+const axios = new CustomAxios()
 
 class Form extends Component {
   constructor(props) {
@@ -24,10 +27,7 @@ class Form extends Component {
       return textFieldObj;
     }, {})
     Object.keys(textFieldObj).forEach(key => params[key] = textFieldObj[key])
-    axiosInstance.post(this.props.url, params).then(res => encryptData(res.data.token))
-    // ---TODO---
-    // Update Error Display 
-    .catch(err => updateToken())
+    axios.post(this.props.url, params, UPDATE_TOKEN)
   }
 
   onChange = (e) => {
@@ -35,11 +35,11 @@ class Form extends Component {
     textMap.set(e.target.name, e.target.value)
     this.setState(textMap)
   }
-  componentWillMount() {
-    (this.props.getFormDetails())
-  }
+  // componentWillMount() {
+  //   (this.props.getFormDetails())
+  // }
   render() {
-    console.log(this.props)
+    // console.log(CustomAxios)
     return (
     <div>
       <form  onSubmit={this.onSubmit}>

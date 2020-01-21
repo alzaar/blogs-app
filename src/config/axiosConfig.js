@@ -2,38 +2,46 @@ import axios from 'axios'
 // --TODO-- Implement own cryptography algorithm
 // --TODO-- Write redux actions for functions below
 import Crypto from 'crypto-js'
+import { TOKEN_TITLE, SECRET_KEY, UPDATE_TOKEN } from './constants'
 
-function getHeader() {
-    if (window.localStorage.getItem('bttf')) {
-      return getDecryptData()[0].token
-    } else {
-      return ''
-    }
-}
+export class CustomAxios {
+  constructor() {
+    this.axios = axios.create({
+      baseURL: '',
+      headers: { Authorization: this.getHeader() },
+    })
+    this.axios.defaults.xsrfCookieName = 'csrftoken'
+    this.axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
+  }
 
-export const axiosInstance =  axios.create({
-  baseURL: '',
-  headers: { Authorization: getHeader() },
-})
-// For Django BE
-axiosInstance.defaults.xsrfCookieName = 'csrftoken'
-axiosInstance.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
+  getHeader() {
+    return window.localStorage.getItem(TOKEN_TITLE) ? this.getDecryptData()[0].token : ''
+  }
 
-// Change Secret Key and put to env file ---TODO---
+  encryptData(header) {
+    let ciphertext = Crypto.AES.encrypt(JSON.stringify([{token: header}]), SECRET_KEY).toString();
+    window.localStorage.setItem(TOKEN_TITLE, ciphertext)
+  }
 
-export function encryptData(header) {
-  let data = [{token: header}]
-  let ciphertext = Crypto.AES.encrypt(JSON.stringify(data), 'secret key 123').toString();
-  window.localStorage.setItem('bttf', ciphertext)
-}
+  getDecryptData() {
+    let ciphertext = window.localStorage.getItem(TOKEN_TITLE)
+    let bytes  = Crypto.AES.decrypt(ciphertext, SECRET_KEY);
+    let decryptedData = JSON.parse(bytes.toString(Crypto.enc.Utf8))
+    return decryptedData
+  }
 
-export function getDecryptData() {
-  let ciphertext = window.localStorage.getItem('bttf')
-  let bytes  = Crypto.AES.decrypt(ciphertext, 'secret key 123');
-  let decryptedData = JSON.parse(bytes.toString(Crypto.enc.Utf8));
-  return decryptedData
-}
+  updateToken() {
+    window.localStorage.removeItem(TOKEN_TITLE)
+  }
 
-export function updateToken() {
-  window.localStorage.removeItem('bttf')
+  post(url, params, type) {
+    this.axios.post(url, params).then(res => this.encryptData(res.data.token))
+    // ---TODO---
+    // Update Error Display 
+    .catch(err => type === UPDATE_TOKEN ? this.updateToken() : console.log(err))
+  }
+
+  get() {
+    // TODO: ADD METHOD
+  }
 }
