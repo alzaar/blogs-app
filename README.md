@@ -1,3 +1,3 @@
-# Frontend App for Blog App - React
+# Frontend for Blog App - React
 
 Created for experimenting with Django Rest Framework
