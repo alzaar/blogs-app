@@ -8,7 +8,7 @@ import {
   Link
 } from 'react-router-dom'
 // Config
-import { getFormDetails } from '../actions/formActions'
+import { getFormDetails, getBlogFormDetails } from '../actions/formActions'
 // Components
 import Form from './Form'
 import Navbar from './layout/Navbar'
@@ -20,13 +20,17 @@ class AppContainer extends React.Component {
     this.props.getFormDetails()
   }
   render() {
+    console.log(this.props)
     return (
       <div>
-        <Navbar />
+        {/* <Navbar />
         <Route exact path='/' component={Home} />
         <Route exact path='/login'>
           <Form formFieldsDetails={this.props.formDetails} url={this.props.url}/>
         </Route>
+        <Route exact path='/blog'>
+          <Form formFieldsDetails={this.props.blogsFormDetails} url={this.props.url}/>
+        </Route> */}
       </div>
     );
   }
@@ -34,20 +38,23 @@ class AppContainer extends React.Component {
 
 const mapStateToProps = state => {
   return ({
-    url: state.formReducer.url,
-    formDetails: state.formReducer.formFieldsDetails
+    loginUrl: state.formReducer.loginUrl,
+    formDetails: state.formReducer.formFieldsDetails,
+    blogUrl: state.formReducer.blogUrl,
+    blogFormDetails: state.formReducer.blogFormDetails,
   })
 }
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    getFormDetails: getFormDetails
+    getFormDetails: getFormDetails,
+    getBlogFormDetails: getBlogFormDetails
   }, dispatch)
 }
 
-AppContainer.propTypes = {
-  formDetails: PropTypes.array.isRequired,
-  url: PropTypes.string.isRequired,
-}
+// AppContainer.propTypes = {
+//   formDetails: PropTypes.array.isRequired,
+//   url: PropTypes.string.isRequired,
+// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)

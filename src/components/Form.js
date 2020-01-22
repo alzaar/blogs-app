@@ -64,10 +64,10 @@ class Form extends Component {
   }
 }
 
-Form.propTypes = {
-  formFieldsDetails: PropTypes.array.isRequired,
-  url: PropTypes.string.isRequired
-}
+// Form.propTypes = {
+//   formFieldsDetails: PropTypes.array.isRequired,
+//   url: PropTypes.string.isRequired
+// }
 
 
 export default Form

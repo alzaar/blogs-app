@@ -1,6 +1,8 @@
 // Form Constants
-export const FORM_DETAILS = 'FORM_DETAILS'
+export const LOGIN_FORM_DETAILS = 'LOGIN_FORM_DETAILS'
+export const BLOG_FORM_DETAILS = 'BLOG_FORM_DETAILS'
 export const LOGIN_URL = 'login/'
+export const BLOG_URL = 'blog/'
 export const LOGIN_FORM_FIELDS = [
   {
     id: 1,
@@ -13,5 +15,19 @@ export const LOGIN_FORM_FIELDS = [
     label: 'password',
     name: 'password',
     inputType: 'password'
+  },
+]
+export const BLOG_FORM_FIELDS = [
+  {
+    id: 1,
+    label: 'title',
+    name: 'title',
+    inputType: 'text'
+  },
+  {
+    id: 2,
+    label: 'description',
+    name: 'description',
+    inputType: 'text'
   },
 ]
