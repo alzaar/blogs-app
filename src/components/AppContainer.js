@@ -3,10 +3,16 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import {
+  Route,
+  Link
+} from 'react-router-dom'
 // Config
 import { getFormDetails } from '../actions/formActions'
 // Components
 import Form from './Form'
+import Navbar from './layout/Navbar'
+import Home from './layout/Home'
 
 
 class AppContainer extends React.Component {
@@ -16,7 +22,11 @@ class AppContainer extends React.Component {
   render() {
     return (
       <div>
-        <Form formFieldsDetails={this.props.formDetails} url={this.props.url}/>
+        <Navbar />
+        <Route exact path='/' component={Home} />
+        <Route exact path='/login'>
+          <Form formFieldsDetails={this.props.formDetails} url={this.props.url}/>
+        </Route>
       </div>
     );
   }
