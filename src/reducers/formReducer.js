@@ -1,8 +1,8 @@
-import { FORM_DETAILS } from '../actions/constants'
+import { FORM_DETAILS } from '../actions/actionConstants'
 
 const initialState = {
   url: '',
-  formFieldsDetails: []
+  formFieldsDetails: [],
 }
 
 export default function formReducer(state=initialState, action) {

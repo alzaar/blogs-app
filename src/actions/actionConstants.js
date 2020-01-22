@@ -1,7 +1,6 @@
+// Form Constants
 export const FORM_DETAILS = 'FORM_DETAILS'
-
 export const LOGIN_URL = 'login/'
-
 export const LOGIN_FORM_FIELDS = [
   {
     id: 1,

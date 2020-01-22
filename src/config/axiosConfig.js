@@ -2,7 +2,7 @@ import axios from 'axios'
 // --TODO-- Implement own cryptography algorithm
 // --TODO-- Write redux actions for functions below
 import Crypto from 'crypto-js'
-import { TOKEN_TITLE, SECRET_KEY, UPDATE_TOKEN } from './constants'
+import { TOKEN_TITLE, SECRET_KEY, UPDATE_TOKEN, TIMESTAMP } from './constants'
 
 export class CustomAxios {
   constructor() {
@@ -15,16 +15,17 @@ export class CustomAxios {
   }
 
   getHeader() {
-    return window.localStorage.getItem(TOKEN_TITLE) ? this.getDecryptData()[0].token : ''
+    return window.localStorage.getItem(TOKEN_TITLE) ? this.getDecryptData(TOKEN_TITLE).token : ''
   }
 
-  encryptData(header) {
-    let ciphertext = Crypto.AES.encrypt(JSON.stringify([{token: header}]), SECRET_KEY).toString();
-    window.localStorage.setItem(TOKEN_TITLE, ciphertext)
+  encryptData(key, value) {
+    let ciphertext = Crypto.AES.encrypt(JSON.stringify({[key]: value}), SECRET_KEY).toString()
+    window.localStorage.setItem(key, ciphertext)
   }
 
-  getDecryptData() {
-    let ciphertext = window.localStorage.getItem(TOKEN_TITLE)
+
+  getDecryptData(key) {
+    let ciphertext = window.localStorage.getItem(key)
     let bytes  = Crypto.AES.decrypt(ciphertext, SECRET_KEY);
     let decryptedData = JSON.parse(bytes.toString(Crypto.enc.Utf8))
     return decryptedData
@@ -35,13 +36,19 @@ export class CustomAxios {
   }
 
   post(url, params, type) {
-    this.axios.post(url, params).then(res => this.encryptData(res.data.token))
+    this.axios.post(url, params).then(res => this.encryptData(TOKEN_TITLE, res.data.token))
     // ---TODO---
-    // Update Error Display 
+    // Update Error Display aole.
     .catch(err => type === UPDATE_TOKEN ? this.updateToken() : console.log(err))
   }
 
   get() {
     // TODO: ADD METHOD
   }
+
+  isValidTimeStamp() {
+    let timestamp = this.getDecryptData(TIMESTAMP)[TIMESTAMP]
+    return timestamp === new Date().getHours() ? false : true
+  }
+
 }

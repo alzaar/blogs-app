@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class InputField extends React.Component {
   onChange = (e) => {
@@ -15,6 +16,13 @@ class InputField extends React.Component {
   }
 }
 
+InputField.propTypes = {
+  label: PropTypes.string.isRequired,
+  inputType: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+}
+
 export default InputField
 
-//Add Proptypes
+//Add Proptypes - TODO
