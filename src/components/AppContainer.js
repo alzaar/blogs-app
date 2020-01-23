@@ -18,19 +18,20 @@ import Home from './layout/Home'
 class AppContainer extends React.Component {
   componentWillMount() {
     this.props.getFormDetails()
+    this.props.getBlogFormDetails()
   }
   render() {
     console.log(this.props)
     return (
       <div>
-        {/* <Navbar />
+        <Navbar />
         <Route exact path='/' component={Home} />
-        <Route exact path='/login'>
-          <Form formFieldsDetails={this.props.formDetails} url={this.props.url}/>
+        <Route exact path={this.props.login.url}>
+          <Form formFieldsDetails={this.props.loginFormDetails} type={this.props.login.type}/>
         </Route>
-        <Route exact path='/blog'>
-          <Form formFieldsDetails={this.props.blogsFormDetails} url={this.props.url}/>
-        </Route> */}
+        <Route exact path={this.props.blog.url}>
+          <Form formFieldsDetails={this.props.blogFormDetails} type={this.props.blog.type} />
+        </Route>
       </div>
     );
   }
@@ -38,10 +39,10 @@ class AppContainer extends React.Component {
 
 const mapStateToProps = state => {
   return ({
-    loginUrl: state.formReducer.loginUrl,
-    formDetails: state.formReducer.formFieldsDetails,
-    blogUrl: state.formReducer.blogUrl,
-    blogFormDetails: state.formReducer.blogFormDetails,
+    login: state.formReducer.login,
+    loginFormDetails: state.formReducer.loginFormFieldsDetails,
+    blog: state.formReducer.blog,
+    blogFormDetails: state.formReducer.blogFormFieldsDetails,
   })
 }
 
@@ -52,9 +53,11 @@ const mapDispatchToProps = dispatch => {
   }, dispatch)
 }
 
-// AppContainer.propTypes = {
-//   formDetails: PropTypes.array.isRequired,
-//   url: PropTypes.string.isRequired,
-// }
+AppContainer.propTypes = {
+  loginFormDetails: PropTypes.array.isRequired,
+  login: PropTypes.object.isRequired,
+  blogFormDetails: PropTypes.array.isRequired,
+  blog: PropTypes.object.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer)

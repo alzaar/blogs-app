@@ -1,8 +1,10 @@
 // Form Constants
 export const LOGIN_FORM_DETAILS = 'LOGIN_FORM_DETAILS'
 export const BLOG_FORM_DETAILS = 'BLOG_FORM_DETAILS'
-export const LOGIN_URL = 'login/'
-export const BLOG_URL = 'blog/'
+export const LOGIN_URL = '/login'
+export const LOGIN_TYPE = 'LOGIN'
+export const BLOG_TYPE = 'BLOGS'
+export const BLOG_URL = '/blogs'
 export const LOGIN_FORM_FIELDS = [
   {
     id: 1,

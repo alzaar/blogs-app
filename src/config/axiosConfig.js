@@ -15,7 +15,7 @@ export class CustomAxios {
   }
 
   getHeader() {
-    return window.localStorage.getItem(TOKEN_TITLE) ? this.getDecryptData(TOKEN_TITLE).token : ''
+    return window.localStorage.getItem(TOKEN_TITLE) ? this.getDecryptData(TOKEN_TITLE)[TOKEN_TITLE] : ''
   }
 
   encryptData(key, value) {
@@ -35,11 +35,20 @@ export class CustomAxios {
     window.localStorage.removeItem(TOKEN_TITLE)
   }
 
-  post(url, params, type) {
+  post(params, type) {
+    // Router params already inputted e.g. post to login posts localhost:8000/login/
+    let url = ''
+    // let token = ''
+    // console.log(token, params, window.localStorage.getItem(TOKEN_TITLE))
+    // params.headers = { Authorization: token }
+    
+    console.log(params, this.axios)
     this.axios.post(url, params).then(res => this.encryptData(TOKEN_TITLE, res.data.token))
     // ---TODO---
     // Update Error Display aole.
-    .catch(err => type === UPDATE_TOKEN ? this.updateToken() : console.log(err))
+    .catch(err => {
+      console.error(err)
+    })
   }
 
   get() {

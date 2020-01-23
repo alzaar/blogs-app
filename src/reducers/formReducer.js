@@ -1,9 +1,15 @@
 import { LOGIN_FORM_DETAILS, BLOG_FORM_DETAILS } from '../actions/actionConstants'
 
 const initialState = {
-  loginUrl: '',
+  login: {
+    url: '',
+    type: ''
+  },
   loginFormFieldsDetails: [],
-  blogUrl: '',
+  blog: {
+    url: '',
+    type: ''
+  },
   blogFormFieldsDetails: [],
 }
 
@@ -12,14 +18,14 @@ export default function formReducer(state=initialState, action) {
     case LOGIN_FORM_DETAILS:
       return {
         ...state,
-        loginUrl: action.payload.loginUrl,
+        login: action.payload.login,
         loginFormFieldsDetails: action.payload.loginFormFields
       }
     case BLOG_FORM_DETAILS:
       return {
         ...state,
-        blogUrl: action.payload.loginUrl,
-        blogFormFieldsDetails: action.payload.loginFormFields
+        blog: action.payload.blog,
+        blogFormFieldsDetails: action.payload.blogFormFields
       }
     default:
       return state
