@@ -8,6 +8,8 @@ const axios = new CustomAxios()
 
 class Navbar extends React.Component {
   onClick = () => {
+    //NEED AUTHORIZATION HEADER
+    //REFACTOR
     let params = 'no_params'
     axios.post(params, '/logout')
   }

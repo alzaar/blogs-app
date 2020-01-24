@@ -3,7 +3,7 @@ import axios from 'axios'
 // --TODO-- Write redux actions for functions below
 import Crypto from 'crypto-js'
 import { TOKEN_TITLE, SECRET_KEY, UPDATE_TOKEN, TIMESTAMP } from './constants'
-
+// -------REFACTOR FOR COREECT HEADER INSERTION----------
 export default class CustomAxios {
   constructor() {
     this.axios = axios.create({
@@ -42,7 +42,7 @@ export default class CustomAxios {
     // console.log(token, params, window.localStorage.getItem(TOKEN_TITLE))
     // params.headers = { Authorization: token }
     
-    console.log(params, this.axios)
+    console.log(params, this.axios, url)
     this.axios.post(url, params).then(res => this.encryptData(TOKEN_TITLE, res.data.token))
     // ---TODO---
     // Update Error Display aole.
@@ -52,7 +52,14 @@ export default class CustomAxios {
   }
 
   get() {
-    // TODO: ADD METHOD
+    const auth = this.getHeader()
+    console.log(this.getDecryptData(TOKEN_TITLE)[TOKEN_TITLE])
+   axios.get('', {
+     headers: {
+    'Content-type': 'application/json',
+    Authorization: auth
+     }
+  }).then(res =>console.log(res)).catch(err => console.error(err))
   }
 
   isValidTimeStamp() {
