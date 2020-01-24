@@ -1,4 +1,4 @@
-import { LOGIN_FORM_DETAILS, BLOG_FORM_DETAILS } from '../actions/actionConstants'
+import { LOGIN_FORM_DETAILS, BLOG_FORM_DETAILS, VIEW_BLOGS } from '../actions/actionConstants'
 
 const initialState = {
   login: {

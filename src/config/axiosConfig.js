@@ -4,7 +4,7 @@ import axios from 'axios'
 import Crypto from 'crypto-js'
 import { TOKEN_TITLE, SECRET_KEY, UPDATE_TOKEN, TIMESTAMP } from './constants'
 
-export class CustomAxios {
+export default class CustomAxios {
   constructor() {
     this.axios = axios.create({
       baseURL: '',
@@ -35,9 +35,9 @@ export class CustomAxios {
     window.localStorage.removeItem(TOKEN_TITLE)
   }
 
-  post(params, type) {
+  post(params, url=false) {
     // Router params already inputted e.g. post to login posts localhost:8000/login/
-    let url = ''
+    url = url ? url : ''
     // let token = ''
     // console.log(token, params, window.localStorage.getItem(TOKEN_TITLE))
     // params.headers = { Authorization: token }

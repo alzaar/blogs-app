@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 // Config
-import { CustomAxios } from '../config/axiosConfig'
+import CustomAxios from '../config/axiosConfig'
 import { UPDATE_TOKEN } from '../config/constants'
 
 //Components
