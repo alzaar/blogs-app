@@ -14,13 +14,18 @@ import Form from './Form'
 import Navbar from './layout/Navbar'
 import Home from './layout/Home'
 import Blogs from './core/Blogs'
+import EditBlog from './core/EditBlog'
+import CustomAxios from '../config/axiosConfig';
 
+const axios = new CustomAxios()
 
 class AppContainer extends React.Component {
-  componentWillMount() {
+  async componentWillMount() {
     this.props.getFormDetails()
     this.props.getBlogFormDetails()
-    this.props.getBlogsViewProps()
+    if ((await axios.sessionValid())) {
+      this.props.getBlogsViewProps()
+    }
   }
   render() {
     return (
@@ -28,12 +33,13 @@ class AppContainer extends React.Component {
         <Navbar />
         <Route exact path='/' component={Home} />
         <Route exact path={this.props.login.url}>
-          <Form formFieldsDetails={this.props.loginFormDetails} type={this.props.login.type}/>
+          <Form formFieldsDetails={this.props.loginFormDetails} type={this.props.login.type} history={this.props.history}/>
         </Route>
         <Route exact path={this.props.blog.url}>
-          <Form formFieldsDetails={this.props.blogFormDetails} type={this.props.blog.type} />
+          <Form formFieldsDetails={this.props.blogFormDetails} type={this.props.blog.type}  history={this.props.history}/>
         </Route>
         <Route exact path={this.props.blogs.url} component={Blogs} />
+        <Route exact path={'/edit'} component={EditBlog} />
       </div>
     );
   }

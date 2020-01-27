@@ -1,8 +1,10 @@
-import { VIEW_BLOGS } from '../actions/actionConstants'
+import { VIEW_BLOGS, SELECT_BLOG } from '../actions/actionConstants'
 const initialState = {
   blogs: {
-    url: ''
-  }
+    url: '',
+    data: [],
+  },
+  selectedBlog: {}
 }
 
 export default function blogsReducer(state=initialState, action) {
@@ -10,7 +12,12 @@ export default function blogsReducer(state=initialState, action) {
     case VIEW_BLOGS:
       return {
         ...state, 
-        blogs: action.payload.blogs
+        blogs: action.payload.blogs,
+      }
+    case SELECT_BLOG:
+      return {
+        ...state, 
+        selectedBlog: action.payload.selectedBlog
       }
     default:
       return state

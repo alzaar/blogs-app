@@ -7,7 +7,7 @@ export const CREATE_BLOG = 'CREATE_BLOG'
 export const CREATE_BLOG_URL = '/blog'
 export const VIEW_BLOGS_URL = '/blogs'
 export const VIEW_BLOGS = 'VIEW_BLOGS'
-
+export const SELECT_BLOG = 'SELECT_BLOG'
 export const LOGIN_FORM_FIELDS = [
   {
     id: 1,

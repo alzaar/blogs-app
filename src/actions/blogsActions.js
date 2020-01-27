@@ -1,13 +1,26 @@
-import {  VIEW_BLOGS, VIEW_BLOGS_URL } from './actionConstants'
+import {  VIEW_BLOGS, VIEW_BLOGS_URL, SELECT_BLOG } from './actionConstants'
+import CustomAxios from '../config/axiosConfig';
 
+const axios = new CustomAxios()
 
-export const getBlogsViewProps = () => dispatch => {
+export const getBlogsViewProps =  () => async dispatch => {
+  let data = (await axios.get('/blogs')).data
   dispatch({
     type: VIEW_BLOGS,
     payload: {
       blogs: {
-        url: VIEW_BLOGS_URL
+        url: VIEW_BLOGS_URL,
+        blogs: data
       }
+    }
+  })  
+}
+
+export const selectBlog = (blog) => dispatch => {
+  dispatch({
+    type: SELECT_BLOG,
+    payload: {
+      selectedBlog: blog
     }
   })
 }
