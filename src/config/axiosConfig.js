@@ -2,7 +2,7 @@ import axios from 'axios'
 // --TODO-- Implement own cryptography algorithm
 // --TODO-- Write redux actions for functions below
 import Crypto from 'crypto-js'
-import { TOKEN_TITLE, SECRET_KEY, TIMESTAMP, LOGOUT } from './constants'
+import { TOKEN_TITLE, SECRET_KEY, TIMESTAMP, LOGOUT, POST_BLOG, LOGIN } from './constants'
 // -------REFACTOR FOR COREECT HEADER INSERTION----------
 export default class CustomAxios {
   constructor() {
@@ -44,28 +44,28 @@ export default class CustomAxios {
     // let token = ''
     // console.log(token, params, window.localStorage.getItem(TOKEN_TITLE))
     // params.headers = { Authorization: token }
-    if (type === LOGOUT) {
-      console.log(params)
-      this.axios.post(url, params)
-      .catch(err => console.error(err))
-      this.destroySession()
-
-    } else {
-      let authToken = this.getHeader()
+    let authToken = this.getHeader()
       params.headers = {
         Authorization: authToken
       }
-      console.log(params)
-      this.axios.post(url, {
-        headers: {
-          Authorization: authToken
-          }
-      }).then(res => this.encryptData(TOKEN_TITLE, res.data.token))
-      // ---TODO---
-      // Update Error Display aole.
-      .catch(err => {
-        console.error(err)
-      })
+    switch(type) {
+      case LOGIN:
+        this.axios.post(url, params
+          ).then(res => this.encryptData(TOKEN_TITLE, res.data.token))
+          // ---TODO---
+          // Update Error Display aole.
+          .catch(err => {
+            console.error(err)
+          })
+      case LOGOUT:
+        this.axios.post(url, params)
+        .catch(err => console.error(err))
+        this.destroySession()
+      case POST_BLOG:
+        console.log(url, params)
+        this.axios.post(url, params)
+      default:
+        return
     }
   }
 

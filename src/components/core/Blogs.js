@@ -13,7 +13,7 @@ class Blogs extends React.Component {
       } else {
       this.props.getBlogsViewProps()
       }
-    }, 1000)
+    }, 30000)
   }
   handleClick = (e, data) => {
     switch (e.target.innerText) {

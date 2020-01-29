@@ -7,7 +7,6 @@ class InputField extends React.Component {
   }
   render() {
     const props = this.props
-    console.log(props)
     return (
       <div>
        <label>{props.label}</label>

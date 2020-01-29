@@ -27,7 +27,7 @@ class Form extends Component {
       return textFieldObj;
     }, {})
     Object.keys(textFieldObj).forEach(key => params[key] = textFieldObj[key])
-    axios.post(params)
+    axios.post(params, '', this.props.type)
     // Refactor
     // let hour = new Date().getHours()
     // axios.encryptData(TIMESTAMP, hour)

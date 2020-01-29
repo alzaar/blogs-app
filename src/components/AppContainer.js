@@ -36,7 +36,7 @@ class AppContainer extends React.Component {
           <Form formFieldsDetails={this.props.loginFormDetails} type={this.props.login.type} history={this.props.history}/>
         </Route>
         <Route exact path={this.props.blog.url}>
-          <Form formFieldsDetails={this.props.blogFormDetails} type={this.props.blog.type}  history={this.props.history}/>
+          <Form formFieldsDetails={this.props.blogFormDetails} type={'POST_BLOG'}  history={this.props.history}/>
         </Route>
         <Route exact path={this.props.blogs.url} component={Blogs} />
         <Route exact path={'/edit'} component={EditBlog} />
