@@ -62,7 +62,7 @@ export default class CustomAxios {
         .catch(err => console.error(err))
         this.destroySession()
       case POST_BLOG:
-        console.log(url, params)
+        console.log(url)
         this.axios.post(url, params)
       default:
         return
