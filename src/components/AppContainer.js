@@ -23,9 +23,9 @@ class AppContainer extends React.Component {
   async componentWillMount() {
     this.props.getFormDetails()
     this.props.getBlogFormDetails()
-    if ((await axios.sessionValid())) {
+    // if ((await axios.sessionValid())) {
       this.props.getBlogsViewProps()
-    }
+    // }
   }
   render() {
     return (

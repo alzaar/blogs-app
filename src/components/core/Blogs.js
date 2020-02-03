@@ -6,14 +6,14 @@ import { connect } from 'react-redux'
 const axios = new CustomAxios()
 
 class Blogs extends React.Component {
-  async componentWillUpdate() {
-    setTimeout(async () => {
-      if (!(await axios.sessionValid())) {
-        this.props.history.push('/login')
-      } else {
+  async componentDidMount() {
+    // setTimeout(async () => {
+    //   if (!(await axios.sessionValid())) {
+    //     this.props.history.push('/login')
+    //   } else {
       this.props.getBlogsViewProps()
-      }
-    }, 30000)
+    //   }
+    // }, 30000)
   }
   handleClick = (e, data) => {
     switch (e.target.innerText) {
@@ -21,7 +21,7 @@ class Blogs extends React.Component {
         this.props.history.push('/edit')
         break
       case 'Delete':
-        axios.delete('/delete', data)
+        axios.delete(`/blogs/${data.id}`, data)
         this.props.getBlogsViewProps()
         break
       case 'View':
@@ -32,7 +32,8 @@ class Blogs extends React.Component {
     }
   }
   render() {
-    let blogs = (this.props.blogs) ? this.props.blogs.map(blog => (
+    console.log(this.props)
+    let blogs = (this.props.blogs) ? this.props.blogs.data.map(blog => (
       <div key={blog.id}>
         <h2>
           {blog.title}

@@ -4,7 +4,7 @@ import CustomAxios from '../config/axiosConfig';
 const axios = new CustomAxios()
 
 export const getBlogsViewProps =  () => async dispatch => {
-  let data = (await axios.get('/blogs')).data
+  let data = (await axios.get('/blogs')) !== undefined ? (await axios.get('/blogs')).data : false
   dispatch({
     type: VIEW_BLOGS,
     payload: {

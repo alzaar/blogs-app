@@ -8,9 +8,9 @@ class InputField extends React.Component {
   render() {
     const props = this.props
     return (
-      <div>
+      <div className={props.formClass}>
        <label>{props.label}</label>
-        <input type={props.inputType} name={props.name} onChange={this.onChange}  />
+        <input className={props.inputClass} placeholder={props.inputPlaceholder} type={props.inputType} name={props.name} onChange={this.onChange}  />
       </div>
     )
   }

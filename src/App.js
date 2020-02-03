@@ -3,7 +3,7 @@ import AppContainer from './components/AppContainer'
 import configureStore from './reduxStore'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
+import './App.css'
 const store = configureStore()
 
 function App(){

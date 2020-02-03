@@ -4,20 +4,20 @@ export const BLOG_FORM_DETAILS = 'BLOG_FORM_DETAILS'
 export const LOGIN_URL = '/login'
 export const LOGIN_TYPE = 'LOGIN'
 export const CREATE_BLOG = 'CREATE_BLOG'
-export const CREATE_BLOG_URL = '/blog'
-export const VIEW_BLOGS_URL = '/blogs'
+export const CREATE_BLOG_URL = '/blogs/'
+export const VIEW_BLOGS_URL = '/allblogs'
 export const VIEW_BLOGS = 'VIEW_BLOGS'
 export const SELECT_BLOG = 'SELECT_BLOG'
 export const LOGIN_FORM_FIELDS = [
   {
     id: 1,
-    label: 'username',
+    label: 'Username',
     name: 'username',
     inputType: 'text'
   },
   {
     id: 2,
-    label: 'password',
+    label: 'Password',
     name: 'password',
     inputType: 'password'
   },

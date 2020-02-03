@@ -100,15 +100,15 @@ export default class CustomAxios {
     window.localStorage.removeItem(TOKEN_TITLE)
   }
 
-  async sessionValid() {
-    let authToken = this.getHeader()
-    let res = await axios('/validsession', {
-      headers: {
-        Authorization: authToken
-      }
-    }).then(res => res.data.userSession).catch(err => false)
-    return res
-  }
+  // async sessionValid() {
+  //   let authToken = this.getHeader()
+  //   let res = await axios('/validsession', {
+  //     headers: {
+  //       Authorization: authToken
+  //     }
+  //   }).then(res => res.data.userSession).catch(err => false)
+  //   return res
+  // }
 
   delete(url, data) {
     let authToken = this.getHeader()
@@ -118,6 +118,6 @@ export default class CustomAxios {
       },
       data
     }
-    axios.delete(url, params)
+    this.axios.delete(url, params)
   }
 }
