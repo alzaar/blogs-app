@@ -44,10 +44,13 @@ class Navbar extends React.Component {
               <li className="nav-item">
                 <Link to='/logout' className="nav-link" onClick={this.onClick} >Logout</Link>
               </li>
+              <li className="nav-item">
+                <Link to="/register/" className="nav-link">Sign up</Link>
+              </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search"/>
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <form className="form-inline my-2 my-lg-0">
+              <input className="form-control mr-sm-2" type="search" placeholder="Search"/>
+              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
           </div>
         </nav>

@@ -2,14 +2,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 // Config
-import CustomAxios from '../config/axiosConfig'
+import CustomAxios from '../../config/axiosConfig'
 // import { UPDATE_TOKEN } from '../config/constants'
-import { VIEW_BLOGS_URL } from '../actions/actionConstants'
+import { LOGIN_TYPE } from '../../actions/actionConstants'
 //Components
 import InputField from './InputField'
 
 // Axios Instance
 const axios = new CustomAxios()
+
+//CSS
+
 
 class Form extends Component {
   constructor(props) {
@@ -18,7 +21,7 @@ class Form extends Component {
       textMap: new Map()
     }
   }
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault()
     let map = this.state.textMap
     let params = {}
@@ -27,11 +30,11 @@ class Form extends Component {
       return textFieldObj;
     }, {})
     Object.keys(textFieldObj).forEach(key => params[key] = textFieldObj[key])
-    axios.post(params, '', this.props.type)
-    // Refactor
-    // let hour = new Date().getHours()
-    // axios.encryptData(TIMESTAMP, hour)
-    // setTimeout(() => this.props.history.push(VIEW_BLOGS_URL), 1000)
+    let res = ( await axios.post(params, '', this.props.type)) 
+    if (this.props.type === LOGIN_TYPE && res.status === 200) {
+      console.log(res)
+      // this.props.authenticateUser(res)
+    }
   }
 
   async componentWillMount() {
@@ -62,7 +65,7 @@ class Form extends Component {
     fields[1].value = this.props.selectedBlog !== undefined ? this.props.selectedBlog.description : ''
     }
     return (
-      <div style={{ border: '10px', padding: '10px', boxShadow: '0.5px 0.5px #C8C8C8', width: '300px', display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '40%', marginTop: '20px', borderWidth: '0.3px', borderColor: '#A9A9A9', borderStyle: 'solid' }}>
+      <div className='form_container'>
         <label  style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '25%' }}>Login Form</label>
         <form  onSubmit={this.onSubmit}>
         {fields.map(field => (

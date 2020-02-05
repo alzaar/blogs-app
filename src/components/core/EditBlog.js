@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Form from '../Form'
+import Form from './Form'
 import { selectBlog } from '../../actions/blogsActions';
 class EditBlog extends React.Component {
   render() {

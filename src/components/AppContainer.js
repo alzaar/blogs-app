@@ -10,9 +10,9 @@ import {
 import { getFormDetails, getBlogFormDetails } from '../actions/formActions'
 import { getBlogsViewProps } from '../actions/blogsActions'
 // Components
-import Form from './Form'
+import Form from './core/Form'
 import Navbar from './layout/Navbar'
-import Home from './layout/Home'
+import HomeDashboard from './layout/HomeDashboard'
 import Blogs from './core/Blogs'
 import EditBlog from './core/EditBlog'
 import CustomAxios from '../config/axiosConfig';
@@ -31,7 +31,7 @@ class AppContainer extends React.Component {
     return (
       <div>
         <Navbar />
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' component={HomeDashboard} />
         <Route exact path={this.props.login.url}>
           <Form formFieldsDetails={this.props.loginFormDetails} type={this.props.login.type} history={this.props.history}/>
         </Route>

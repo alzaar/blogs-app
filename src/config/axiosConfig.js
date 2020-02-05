@@ -24,6 +24,7 @@ export default class CustomAxios {
     let ciphertext = Crypto.AES.encrypt(JSON.stringify({[key]: value}), SECRET_KEY).toString()
     window.localStorage.setItem(key, ciphertext)
     this.updateTimeStamp()
+    return true
   }
 
 
@@ -50,20 +51,28 @@ export default class CustomAxios {
       }
     switch(type) {
       case LOGIN:
-        this.axios.post(url, params
-          ).then(res => this.encryptData(TOKEN_TITLE, res.data.token))
+        return this.axios.post(url, params
+          ).then(res => 
+            {
+              this.encryptData(TOKEN_TITLE, res.data.token)
+              return res
+            })
+
           // ---TODO---
           // Update Error Display aole.
           .catch(err => {
             console.error(err)
+            return false
           })
       case LOGOUT:
         this.axios.post(url, params)
         .catch(err => console.error(err))
         this.destroySession()
+        break
       case POST_BLOG:
         console.log(url)
         this.axios.post(url, params)
+        break
       default:
         return
     }
