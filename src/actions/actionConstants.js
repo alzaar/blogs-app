@@ -36,3 +36,6 @@ export const BLOG_FORM_FIELDS = [
     inputType: 'text'
   },
 ]
+
+//User Reducer/Actions
+export const USER_LOGIN = 'USER_LOGIN'

@@ -9,6 +9,7 @@ import {
 // Config -- Actions
 import { getFormDetails, getBlogFormDetails } from '../actions/formActions'
 import { getBlogsViewProps } from '../actions/blogsActions'
+import { authtenticateUser } from '../actions/userActions'
 // Components
 import Form from './core/Form'
 import Navbar from './layout/Navbar'
@@ -51,7 +52,8 @@ const mapStateToProps = state => {
     loginFormDetails: state.formReducer.loginFormFieldsDetails,
     blog: state.formReducer.blog,
     blogFormDetails: state.formReducer.blogFormFieldsDetails,
-    blogs: state.blogsReducer.blogs
+    blogs: state.blogsReducer.blogs,
+    authtenticated: state.userReducer.authtenticated
   })
 }
 
@@ -59,7 +61,8 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({
     getFormDetails: getFormDetails,
     getBlogFormDetails: getBlogFormDetails,
-    getBlogsViewProps: getBlogsViewProps
+    getBlogsViewProps: getBlogsViewProps,
+    authtenticateUser: authtenticateUser
   }, dispatch)
 }
 
