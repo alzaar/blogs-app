@@ -4,7 +4,7 @@ const initialState = {
     authtenticated: false,
 }
 
-export default userReducer(state=initialState, action) {
+export default function userReducer(state=initialState, action) {
     switch(action.type) {
         case USER_LOGIN:
             return {

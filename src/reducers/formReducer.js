@@ -11,6 +11,7 @@ const initialState = {
     type: ''
   },
   blogFormFieldsDetails: [],
+  
 }
 
 export default function formReducer(state=initialState, action) {
