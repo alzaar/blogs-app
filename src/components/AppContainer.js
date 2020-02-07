@@ -7,7 +7,7 @@ import {
   Route,
 } from 'react-router-dom'
 // Config -- Actions
-import { getFormDetails, getBlogFormDetails } from '../actions/formActions'
+import { getFormDetails, getBlogFormDetails, getRegisterFormDetails } from '../actions/formActions'
 import { getBlogsViewProps } from '../actions/blogsActions'
 import { authtenticateUser } from '../actions/userActions'
 // Components
@@ -41,6 +41,9 @@ class AppContainer extends React.Component {
         </Route>
         <Route exact path={this.props.blogs.url} component={Blogs} />
         <Route exact path={'/edit'} component={EditBlog} />
+        <Route exact path={'/register/'}>
+          <Form formFieldsDetails={this.props.blogFormDetails} type={'POST_BLOG'}  history={this.props.history}/>
+        </Route>
       </div>
     );
   }
@@ -53,7 +56,8 @@ const mapStateToProps = state => {
     blog: state.formReducer.blog,
     blogFormDetails: state.formReducer.blogFormFieldsDetails,
     blogs: state.blogsReducer.blogs,
-    authtenticated: state.userReducer.authtenticated
+    authtenticated: state.userReducer.authtenticated,
+    register: state.formReducer.register
   })
 }
 
@@ -62,7 +66,8 @@ const mapDispatchToProps = dispatch => {
     getFormDetails: getFormDetails,
     getBlogFormDetails: getBlogFormDetails,
     getBlogsViewProps: getBlogsViewProps,
-    authtenticateUser: authtenticateUser
+    authtenticateUser: authtenticateUser,
+    registerFormDetails: getRegisterFormDetails
   }, dispatch)
 }
 
