@@ -39,3 +39,29 @@ export const BLOG_FORM_FIELDS = [
 
 //User Reducer/Actions
 export const USER_LOGIN = 'USER_LOGIN'
+
+// Register details
+export const REGISTER_FORM_FIELDS = [
+  {
+    id: 1,
+    label: 'Username',
+    name: 'username',
+    inputType: 'text'
+  },
+  {
+    id: 2,
+    label: 'Password',
+    name: 'password',
+    inputType: 'password'
+  },
+  {
+    id: 3,
+    label: 'Email',
+    name: 'email',
+    inputType: 'email'
+  }
+]
+
+export const REGISTER_URL = '/register/'
+export const REGISTER_TYPE = 'REGISTER'
+export const REGISTER = 'REGISTER'

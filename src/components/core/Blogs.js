@@ -7,32 +7,29 @@ const axios = new CustomAxios()
 
 class Blogs extends React.Component {
   async componentDidMount() {
-    // setTimeout(async () => {
-    //   if (!(await axios.sessionValid())) {
-    //     this.props.history.push('/login')
-    //   } else {
-      this.props.getBlogsViewProps()
-    //   }
-    // }, 30000)
+    this.props.getBlogsViewProps()
+    // axios.get('/blogs').then(res => console.log(res))
   }
   handleClick = (e, data) => {
+    console.log(e.target.innerText)
     switch (e.target.innerText) {
       case 'Edit':
-        this.props.history.push('/edit')
+        this.props.history.push(`/blogs/${data.id}/`)
+        this.props.selectBlog(data)
         break
       case 'Delete':
         axios.delete(`/blogs/${data.id}`, data)
         this.props.getBlogsViewProps()
         break
       case 'View':
-        this.props.history.push(`/edit`)
+        this.props.history.push(`/blog/${data.id}`)
         this.props.selectBlog(data)
+        break
       default:
         return 'No button'
     }
   }
   render() {
-    console.log(this.props)
     let blogs = (this.props.blogs) ? this.props.blogs.data.map(blog => (
       <div key={blog.id}>
         <h2>
@@ -42,7 +39,7 @@ class Blogs extends React.Component {
           {blog.description}
         </p>
         <div>
-          <button onClick={this.handleClick}>Edit</button>
+          <button onClick={(e) => this.handleClick(e, blog)}>Edit</button>
           <button onClick={(e) => this.handleClick(e, blog)}>Delete</button>
           <button onClick={(e) => this.handleClick(e, blog)}>View</button>
         </div>

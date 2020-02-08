@@ -7,7 +7,7 @@ import {
   Route,
 } from 'react-router-dom'
 // Config -- Actions
-import { getFormDetails, getBlogFormDetails, getRegisterFormDetails } from '../actions/formActions'
+import { getFormDetails, getBlogFormDetails, getRegisterDetails } from '../actions/formActions'
 import { getBlogsViewProps } from '../actions/blogsActions'
 import { authtenticateUser } from '../actions/userActions'
 // Components
@@ -15,18 +15,15 @@ import Form from './core/Form'
 import Navbar from './layout/Navbar'
 import HomeDashboard from './layout/HomeDashboard'
 import Blogs from './core/Blogs'
+import Blog from './core/Blog'
 import EditBlog from './core/EditBlog'
-import CustomAxios from '../config/axiosConfig';
-
-const axios = new CustomAxios()
 
 class AppContainer extends React.Component {
   async componentWillMount() {
     this.props.getFormDetails()
     this.props.getBlogFormDetails()
-    // if ((await axios.sessionValid())) {
-      this.props.getBlogsViewProps()
-    // }
+    this.props.getBlogsViewProps()
+    this.props.getRegisterDetails()
   }
   render() {
     return (
@@ -40,9 +37,10 @@ class AppContainer extends React.Component {
           <Form formFieldsDetails={this.props.blogFormDetails} type={'POST_BLOG'}  history={this.props.history}/>
         </Route>
         <Route exact path={this.props.blogs.url} component={Blogs} />
-        <Route exact path={'/edit'} component={EditBlog} />
-        <Route exact path={'/register/'}>
-          <Form formFieldsDetails={this.props.blogFormDetails} type={'POST_BLOG'}  history={this.props.history}/>
+        <Route exact path={'/blogs/:id/'} component={EditBlog} />
+        <Route exact path={'/blog/:id/'} component={Blog} />
+        <Route exact path={this.props.register.url}>
+          <Form formFieldsDetails={this.props.register.registerFormDetails} type={this.props.register.type}  history={this.props.history}/>
         </Route>
       </div>
     );
@@ -67,7 +65,7 @@ const mapDispatchToProps = dispatch => {
     getBlogFormDetails: getBlogFormDetails,
     getBlogsViewProps: getBlogsViewProps,
     authtenticateUser: authtenticateUser,
-    registerFormDetails: getRegisterFormDetails
+    getRegisterDetails: getRegisterDetails
   }, dispatch)
 }
 

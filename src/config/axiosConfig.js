@@ -2,13 +2,13 @@ import axios from 'axios'
 // --TODO-- Implement own cryptography algorithm
 // --TODO-- Write redux actions for functions below
 import Crypto from 'crypto-js'
-import { TOKEN_TITLE, SECRET_KEY, TIMESTAMP, LOGOUT, POST_BLOG, LOGIN } from './constants'
+import { TOKEN_TITLE, SECRET_KEY, TIMESTAMP, LOGOUT, POST_BLOG, LOGIN, REGISTER, EDIT_BLOG} from './constants'
 // -------REFACTOR FOR COREECT HEADER INSERTION----------
 export default class CustomAxios {
   constructor() {
     this.axios = axios.create({
       baseURL: '',
-      headers: { Authorization: '' },
+      headers: { Authorization: `` },
     })
     this.axios.defaults.xsrfCookieName = 'csrftoken'
     this.axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
@@ -42,19 +42,29 @@ export default class CustomAxios {
   post(params, url=false, type=false) {
     // Router params already inputted e.g. post to login posts localhost:8000/login/
     url = url ? url : ''
+    console.log(type)
     // let token = ''
     // console.log(token, params, window.localStorage.getItem(TOKEN_TITLE))
     // params.headers = { Authorization: token }
     let authToken = this.getHeader()
       params.headers = {
-        Authorization: authToken
+        Authorization: `Token ${authToken}`
       }
+    
+    this.axios.defaults.xsrfCookieName = 'csrftoken'
+    this.axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
     switch(type) {
       case LOGIN:
         return this.axios.post(url, params
           ).then(res => 
             {
               this.encryptData(TOKEN_TITLE, res.data.token)
+              this.axios = axios.create({
+                baseURL: '',
+                headers: { Authorization: `Token ${res.data.token}` },
+              })
+              this.axios.defaults.xsrfCookieName = 'csrftoken'
+              this.axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
               return res
             })
 
@@ -70,20 +80,36 @@ export default class CustomAxios {
         this.destroySession()
         break
       case POST_BLOG:
-        console.log(url)
+        console.log('we are posting', params.headers, this.axios)
         this.axios.post(url, params)
+        break
+      case REGISTER:
+          this.axios.post(url, params)
+          break
+      case EDIT_BLOG:
+        console.log(params, url)
+        this.axios.put(url, params)
         break
       default:
         return
     }
   }
 
+  alternateAxios(headerToken) {
+    let alternateAxios = axios = axios.create({
+      baseURL: '',
+      headers: { Authorization: '' },
+    })
+
+    
+  }
+
   async get(url=false) {
-     url = url ? url : ''
-  let authToken = this.getHeader()
+    url = url ? url : ''
+    let authToken = this.getHeader()
     let res = await axios.get(url, {
       headers: {
-      Authorization: authToken
+      Authorization: `Token ${authToken}`
       }
     }).then(res => res).catch(err => console.error(err))
     return res
@@ -123,7 +149,7 @@ export default class CustomAxios {
     let authToken = this.getHeader()
     let params = {
       headers: {
-        Authorization: authToken
+        Authorization: `Token ${authToken}`
       },
       data
     }

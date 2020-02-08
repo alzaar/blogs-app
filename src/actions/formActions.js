@@ -7,6 +7,10 @@ import {
   BLOG_FORM_DETAILS,
   CREATE_BLOG,
   CREATE_BLOG_URL,
+  REGISTER_FORM_FIELDS,
+  REGISTER_URL,
+  REGISTER_TYPE,
+  REGISTER
 } from './actionConstants'
 
 export const getFormDetails = () => disptach => {
@@ -31,6 +35,17 @@ export const getBlogFormDetails = () => dispatch => {
         type: CREATE_BLOG
       },
       blogFormFields: BLOG_FORM_FIELDS
+    }
+  })
+}
+
+export const getRegisterDetails = () => dispatch => {
+  dispatch({
+    type: REGISTER,
+    payload: {
+      url: REGISTER_URL,
+      type: REGISTER_TYPE,
+      registerFormDetails: REGISTER_FORM_FIELDS 
     }
   })
 }

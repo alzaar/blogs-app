@@ -1,15 +1,18 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Form from './Form'
-import { selectBlog } from '../../actions/blogsActions';
+import { EDIT_BLOG } from '../../config/constants'
+
 class EditBlog extends React.Component {
+  componentDidMount() {
+    
+  }
   render() {
-    console.log(this.props, 'from edit blog')
-  return (
-    <Form formFieldsDetails={this.props.blogFormDetails} selectedBlog={this.props.selectedBlog} type={'view_blog'}  history={this.props.history} data={this.props.blogData}/>
-  )
-}
+    console.log(this.props.selectedBlog)
+    return (
+      <Form formFieldsDetails={this.props.blogFormDetails} selectedBlog={this.props.selectedBlog} type={EDIT_BLOG}  history={this.props.history} data={this.props.blogData}/>
+    )
+  }
 }
 
 const mapStateToProps = state => {

@@ -2,7 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class InputField extends React.Component {
+  state = {
+    vallue: ''
+  }
+  componentDidMount() {
+    this.setState({value: this.props.value})
+  }
   onChange = (e) => {
+    this.setState({value: e.target.value})
     this.props.onChange(e)
   }
   render() {
@@ -10,7 +17,7 @@ class InputField extends React.Component {
     return (
       <div className={props.formClass}>
        <label>{props.label}</label>
-        <input className={props.inputClass} placeholder={props.inputPlaceholder} type={props.inputType} name={props.name} onChange={this.onChange}  />
+        <input className={props.inputClass} placeholder={props.inputPlaceholder} value={this.state.value} type={props.inputType} name={props.name} onChange={this.onChange}  />
       </div>
     )
   }

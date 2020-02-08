@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 // Config
 import CustomAxios from '../../config/axiosConfig'
+import { EDIT_BLOG } from '../../config/constants'
 // import { UPDATE_TOKEN } from '../config/constants'
 import { LOGIN_TYPE } from '../../actions/actionConstants'
 //Components
@@ -11,7 +12,7 @@ import InputField from './InputField'
 // Axios Instance
 const axios = new CustomAxios()
 
-//CSS
+// Constants
 
 
 class Form extends Component {
@@ -30,20 +31,15 @@ class Form extends Component {
       return textFieldObj;
     }, {})
     Object.keys(textFieldObj).forEach(key => params[key] = textFieldObj[key])
+    if (this.props.type === EDIT_BLOG) {
+      params.created_by = this.props.selectedBlog.created_by
+    }
+    console.log(axios)
     let res = ( await axios.post(params, '', this.props.type)) 
     if (this.props.type === LOGIN_TYPE && res.status === 200) {
-      console.log(res)
+      // console.log(res)
       // this.props.authenticateUser(res)
     }
-  }
-
-  async componentWillMount() {
-    // if (this.props.type !== 'LOGIN') {
-    //   if (!await axios.sessionValid()) {
-    //     this.props.history.push('/login')
-    //   }
-
-    // }
   }
 
   onChange = (e) => {
@@ -52,17 +48,11 @@ class Form extends Component {
     this.setState(textMap)
   }
 
-  // componentWillMount() {
-  //   let isAuth = axios.isValidTimeStamp()
-  //   console.log(isAuth)
-  // }
-
-
   render() {
     let fields = this.props.formFieldsDetails
     if (fields[0] !== undefined) {
-    fields[0].value = this.props.selectedBlog !== undefined ? this.props.selectedBlog.title : ''
-    fields[1].value = this.props.selectedBlog !== undefined ? this.props.selectedBlog.description : ''
+      fields[0].value = this.props.selectedBlog !== undefined ? this.props.selectedBlog.title : ''
+      fields[1].value = this.props.selectedBlog !== undefined ? this.props.selectedBlog.description : ''
     }
     return (
       <div className='form_container'>
